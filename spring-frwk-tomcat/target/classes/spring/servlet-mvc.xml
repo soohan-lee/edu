@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd		
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 
+        bean으로 등록된 class로부터 종속성 삽입을 위한 annotation을 지원한다.
+        ex) @Required, @Autowired, @PostConstruct, @PreDestroy, @Resource   
+    -->
+    <context:annotation-config />
+    <!-- Controller Annotation을 통해 bean을 검색할 경로를 지정한다. -->	
+    <context:component-scan base-package="ideatec.edu.spring.frwk.tomcat" use-default-filters="false">
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
+
+	<mvc:default-servlet-handler />
+
+    <!-- MVC annotation 이용시 필요한 bean 자동 등록. -->
+	<mvc:annotation-driven>
+        <!-- 
+            annotation을 이용한 JSON Format Response 지원.
+            ex) @ResponseBody
+         -->
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	    </mvc:message-converters>
+
+	</mvc:annotation-driven>
+	
+</beans>

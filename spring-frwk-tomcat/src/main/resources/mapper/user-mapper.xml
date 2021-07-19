@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="ideatec.edu.spring.frwk.tomcat.mapper.UserMapper">
+	
+	<select id="selectList" parameterType = "ideatec.edu.spring.frwk.tomcat.dto.UserDto" resultType="ideatec.edu.spring.frwk.tomcat.dto.UserDto">
+		SELECT 
+			  ID
+			, NAME
+			
+		FROM
+			user
+	</select>
+	
+	<insert id="insert" parameterType = "ideatec.edu.spring.frwk.tomcat.dto.UserDto">
+		INSERT
+		INTO USER
+		(
+			  ID
+			, NAME
+		)
+		VALUES
+		(
+			  #{userId}
+			, #{userName}
+		)
+	</insert>
+	
+	<update id="update" parameterType="ideatec.edu.spring.frwk.tomcat.dto.UserDto">
+		UPDATE
+			USER
+		SET
+		<if test="userId !=null and userId !='' ">
+			ID = #{userId},
+		</if>
+		<if test="userName !=null and userName !='' ">
+			NAME = #{userName},
+		</if>
+		WHERE ID = #{userId}
+	</update>
+	
+	</mapper>

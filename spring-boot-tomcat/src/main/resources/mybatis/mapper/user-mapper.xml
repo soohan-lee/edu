@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="ideatec.edu.spring.boot.tomcat.mapper.UserMapper">
+	<select id="selectList" parameterType = "ideatec.edu.spring.boot.tomcat.dto.UserDto" resultType="ideatec.edu.spring.boot.tomcat.dto.UserDto">
+		SELECT 
+			  USER_ID
+			, USER_NAME
+			, PHONE_NUM
+			, PASSWORD
+		FROM
+			user
+	</select>
+	
+	<insert id="insert" parameterType = "ideatec.edu.spring.boot.tomcat.dto.UserDto">
+		INSERT
+		INTO USER
+		(
+			  USER_ID
+			, USER_NAME
+			, PHONE_NUM
+			, PASSWORD
+		)
+		VALUES
+		(
+			  #{userId}
+			, #{userName}
+			, #{phoneNum}
+			, #{password}
+		)
+	</insert>
+	
+	<update id="update" parameterType="ideatec.edu.spring.boot.tomcat.dto.UserDto">
+		UPDATE
+			USER
+		SET
+		<if test="userId !=null and userId !='' ">
+			USER_ID = #{userId},
+		</if>
+		<if test="userName !=null and userName !='' ">
+			USER_NAME = #{userName},
+		</if>
+		<if test="phoneNum !=null and phoneNum !='' ">
+			PHONE_NUM = #{phoneNum},
+		</if>
+		<if test="password !=null and password !='' ">
+			PASSWORD = #{password},
+		</if>
+		WHERE USER_ID = #{userId}
+	</update>
+</mapper>
